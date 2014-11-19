@@ -1,0 +1,3 @@
+#!/bin/bash
+
+awk '/Container:/{g++} { print $0 > "container-"g }' "$@"
