@@ -1,0 +1,23 @@
+#!/bin/bash
+
+appid="$(yarn-appid "$1")"
+shift
+if [ $# -gt 0 ]; then
+  dest_dir="$1"
+else
+  dest_dir=./"$appid"
+fi
+
+mkdir -p "$dest_dir"
+cd "$dest_dir"
+
+if [ -s "./logs" ]; then
+  echo "Found existing logs file at $PWD/logs; splitting per-container..."
+  split-yarn-logs-per-container ./logs
+else
+  echo "Downloading logs for $appid and splitting per-container..."
+  yarn logs -applicationId "$appid" | split-yarn-logs-per-container
+fi
+
+rename-and-link-container-logs
+link-driver-logs
