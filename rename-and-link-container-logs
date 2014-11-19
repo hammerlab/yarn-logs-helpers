@@ -1,0 +1,25 @@
+#!/bin/bash
+
+for f in ./container-*; do
+  line="$(head -n 1 "$f")"
+  if [[ ! "$line" =~ ^Container: ]]; then
+    echo "Removing: $f"
+    rm -f "$f"
+    continue
+  fi
+  container="${line#Container: }"
+  container="${container%% on **}"
+
+  host="${line##* on }"
+
+  if [ ! -z "$YARN_HELPERS_STRIP_HOST_SUFFIX" ]; then
+    host="${host%${YARN_HELPERS_STRIP_HOST_SUFFIX}*}"
+  fi
+
+  mv "$f" "$container"
+  mkdir -p "$host"
+  cd "$host"
+  ln -s ../"$container"
+  cd ..
+done
+
