@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Scans existing YARN applications, parses a <cluster ID>, from them, and writes it to the file $yarn_cluster_id_file
+# (default $HOME/.yarn-cluster-id). No-ops if no `yarn` binary is found.
+
+if $(which yarn &> /dev/null); then
+
+  # List YARN applications to parse their common prefix
+  yarn application -list -appStates ALL | \
+
+    # Filter to just the first word of lines whose first word matches /^application_/
+    perl -ne 'print if s/^(application_[^\s]*).*/\1/' | \
+
+    # Split out the second '_'-delimited word
+    awk -F_ '{ print $2 }' | \
+
+    # Grab the first row, assume they're all equal; send to designated file.
+    head -n 1 > "$yarn_cluster_id_file"
+
+fi

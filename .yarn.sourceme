@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# This file includes logic for computing a "cluster ID" from YARN application IDs. By default, application IDs will be
+# of the form: "application_<cluster ID>_XXXX". The <cluster ID> resets every time the cluster is rebooted, and the X's
+# represent a monotonically-increasing 4-digit number that uniquely identifies the application within this cluster-run.
+#
+# When this file is sourced, if no cluster ID is found, this file will attempt to fetch one.
+
+export yarn_cluster_id_file="$HOME/.yarn-cluster-id"
+
+if [ -z "$(get-yarn-cluster-id)" ]; then
+  yarn-refresh-cluster-id
+fi

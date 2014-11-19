@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# If the yarn cluster-ID file exists, `cat` it.
+[ -f "$yarn_cluster_id_file" ] && cat "$yarn_cluster_id_file"
