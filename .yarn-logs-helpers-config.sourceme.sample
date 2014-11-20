@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Example file showing initialization of environment state and symlinks for yarn-logs-helpers.
-# Assumes the following environment variables exist:
+# If the `$yarn_aliases_dir` environment variable exists, it will attempt to:
 #
-#   - `$yarn_logs_helpers`: points to yarn-logs-helpers repo.
-#   - `$yarn_aliases_dir`: points to a directory:
-#     - that this script can create (or that already exists),
-#     - that this script can append to your `$PATH`, and
-#     - within which this script can create symlinks to yarn-logs-helpers scripts.
+#   - create a directory there (or no-op if one already exists),
+#   - append it to `$PATH`, and
+#   - create symlinks to yarn-logs-helpers scripts within it.
+
+export yarn_logs_helpers="$(dirname "${BASH_SOURCE[0]}")"
 
 source_path="$yarn_logs_helpers/.yarn-logs-helpers.sourceme"
 [ -f "$source_path" ] && source "$source_path" || echo "yarn-logs-helpers: didn't find '$source_path' to source."
