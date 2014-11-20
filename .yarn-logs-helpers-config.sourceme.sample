@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Example file showing intialization of environment state and symlinks for yarn-logs-helpers.
+# Example file showing initialization of environment state and symlinks for yarn-logs-helpers.
 # Assumes the following environment variables exist:
 #
 #   - `$yarn_logs_helpers`: points to yarn-logs-helpers repo.
