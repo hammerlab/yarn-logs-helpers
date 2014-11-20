@@ -80,6 +80,31 @@ A common use case is parsing logs from Spark jobs running on YARN, for which `ya
     * This functionality lives in [`link-tids`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/link-tids).
     * Note that if a Spark job had multiple Application Masters ("drivers"), it will likely have had multiple tasks with some task IDs, which will cause errors to be emitted by this stage. See discussion at [#2](https://github.com/hammerlab/yarn-logs-helpers/issues/2#issuecomment-63861447).
 
+#### Stack Trace Parsing / Histogram
+`yarn-logs-stack-traces` uses a [stack-trace-parsing library](https://github.com/ryan-williams/stack-traces) on the output of `yarn-logs`. Example usage:
+```
+$ yls 0018 -d  # -d means "show a histogram in descending order"
+635 stacks in total
+
+71 occurrences:
+org.apache.spark.shuffle.MetadataFetchFailedException: Missing an output location for shuffle 4
+        at org.apache.spark.MapOutputTracker$$anonfun$org$apache$spark$MapOutputTracker$$convertMapStatuses$1.apply(MapOutputTracker.scala:386)
+        at org.apache.spark.MapOutputTracker$$anonfun$org$apache$spark$MapOutputTracker$$convertMapStatuses$1.apply(MapOutputTracker.scala:383)
+        at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:244)
+        ...
+        at java.lang.Thread.run(Thread.java:744)
+
+60 occurrences:
+java.io.IOException: Failed to connect to demeter-csmaz11-16.demeter.hpc.mssm.edu/172.29.46.86:33263
+        at org.apache.spark.network.client.TransportClientFactory.createClient(TransportClientFactory.java:141)
+        at org.apache.spark.network.netty.NettyBlockTransferService$$anon$1.createAndStart(NettyBlockTransferService.scala:78)
+        at org.apache.spark.network.shuffle.RetryingBlockFetcher.fetchAllOutstanding(RetryingBlockFetcher.java:140)
+        ...
+        at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:116)
+
+...
+```
+
 #### Other Miscellaneous Scripts
 This repo contains several other scripts that basically wrap YARN commands in calls to [`yarn-appid`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/yarn-appid), allowing last-4-lookup of application IDs:
 * [`yarn-kill`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/yarn-kill): wrapper for `yarn application -kill <appid>`.
@@ -106,5 +131,8 @@ There are a few things you should do in your `.bashrc` (or equivalent):
 
         # Set to a piece of output you expect to only find in "driver"s' logs.
         export YARN_HELPERS_DRIVER_GREP_NEEDLE="Job starting!"
+
+##### `stack-traces` submodule
+Additionally, [stack-traces](https://github.com/ryan-williams/stack-traces) is included in this repository as a git submodule; you'll need to `git clone --recursive` when you check out the project, or run `git submodule init && git submodule update` from within the `stack-traces` subdirectory. [git-scm.com](http://git-scm.com/book/en/v2/Git-Tools-Submodules#Cloning-a-Project-with-Submodules) has a good intro to using git submodules if you are not familiar.
 
 With those done you should be all set!
