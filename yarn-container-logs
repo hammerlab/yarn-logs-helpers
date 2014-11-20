@@ -10,17 +10,25 @@ fi
 
 mkdir -p "$dest_dir"
 cd "$dest_dir"
+dest_dir="$PWD"
 
-if [ -s "./logs" ]; then
-  echo "Found existing logs file at $PWD/logs; splitting per-container..."
-  split-yarn-logs-per-container ./logs
+containers_dir="$dest_dir/containers"
+mkdir -p "$containers_dir"
+cd "$containers_dir"
+
+cached_log_file="$dest_dir/logs"
+
+if [ -s "$cached_log_file" ]; then
+  echo "Found existing logs file at $cached_log_file; splitting per-container..."
+  split-yarn-logs-per-container "$cached_log_file"
 else
   echo "Downloading logs for $appid and splitting per-container..."
   yarn logs -applicationId "$appid" | split-yarn-logs-per-container
 fi
 
+cd "$dest_dir"
 echo "Done downloading; rename and create per-host directories..."
-rename-and-link-container-logs
+rename-and-link-hosts
 
 echo "Look for driver containers..."
 link-driver-logs

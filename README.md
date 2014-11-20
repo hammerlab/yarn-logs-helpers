@@ -16,6 +16,9 @@ $ yarn-container-logs 0018
     # Directory created by yarn-container-logs
     $ cd application_1416279928169_0018
 
+    # Directory with per-container logs
+    $ cd containers
+
     # Per-container log files have prefix /container_/
     $ ls container_*
     container_1416279928169_0018_01_000015
@@ -33,9 +36,10 @@ $ yarn-container-logs 0018
     ...
     ```
 
-* It also creates a directory per node containing symlinks to the log-files of all containers that ran on that node:
+* It also creates a directory per node (a.k.a. "host") containing symlinks to the log-files of all containers that ran on that node:
 
     ```
+    $ cd hosts
     $ ls -l my-node-*
     my-node-08-1:
     lrwxrwxrwx 1 <user> <group> 41 Nov 20 04:42 container_1416279928169_0018_01_000065 -> ../container_1416279928169_0018_01_000065
@@ -53,7 +57,7 @@ $ yarn-container-logs 0018
     ...
     ```
 
-    * This functionality lives in [`rename-and-link-container-logs`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/rename-and-link-container-logs).
+    * This functionality lives in [`rename-and-link-hosts`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/rename-and-link-hosts).
     * In this example, the per-node directories have a common suffix `.rest.of.domain.name_<port>` removed for brevity; this is enabled by setting the `$YARN_HELPERS_DROP_HOST_SUFFIX_FROM` environment variable.
     * See the [Installing](#installing) section for more details on setting `$YARN_HELPERS_DROP_HOST_SUFFIX_FROM`.
 

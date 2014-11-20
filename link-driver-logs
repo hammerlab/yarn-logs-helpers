@@ -11,7 +11,7 @@ idx=0
 
 OLD_IFS="$IFS"
 IFS=$'\n'
-for f in $(grep -l "$YARN_HELPERS_DRIVER_GREP_NEEDLE" container_*); do
+for f in $(grep -l "$YARN_HELPERS_DRIVER_GREP_NEEDLE" containers/container_*); do
   echo "Found driver: $f"
   ln -sf ../"$f" drivers/
   ln -sf ../"$f" drivers/$idx
