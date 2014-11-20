@@ -19,7 +19,12 @@ else
   yarn logs -applicationId "$appid" | split-yarn-logs-per-container
 fi
 
+echo "Done downloading; rename and create per-host directories..."
 rename-and-link-container-logs
+
+echo "Look for driver containers..."
 link-driver-logs
+
+echo "Creating TID symlinks..."
 link-tids
 
