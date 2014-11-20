@@ -53,10 +53,10 @@ $ yarn-container-logs 0018
     lrwxrwxrwx 1 <user> <group> 41 Nov 20 04:42 container_1416279928169_0018_01_000354 -> ../container_1416279928169_0018_01_000354
     lrwxrwxrwx 1 <user> <group> 41 Nov 20 04:42 container_1416279928169_0018_01_000424 -> ../container_1416279928169_0018_01_000424
     ```
-    In this example, the per-node directories have a common suffix `.rest.of.domain.name_port` removed (node hostnames are parsed from log files themselves; see earlier example of the full hostname of `my-node-11-10`), for brevity/clarity; this is enabled by setting the `$YARN_HELPERS_STRIP_HOST_SUFFIX` environment variable. I do this in my `.bashrc` so that it is always set by default:
+    In this example, the per-node directories have a common suffix `.rest.of.domain.name_port` removed (node hostnames are parsed from log files themselves; see earlier example of the full hostname of `my-node-11-10`), for brevity/clarity; this is enabled by setting the `$YARN_HELPERS_DROP_HOST_SUFFIX_FROM` environment variable. I do this in my `.bashrc` so that it is always set by default:
 
         # leaves the <port> unspecified, but everything from this to the right is dropped.
-        export YARN_HELPERS_STRIP_HOST_SUFFIX=".rest.of.domain.name_"
+        export YARN_HELPERS_DROP_HOST_SUFFIX_FROM=".rest.of.domain.name_"
 
     This functionality lives in [`rename-and-link-container-logs`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/rename-and-link-container-logs).
 
