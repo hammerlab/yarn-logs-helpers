@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Example file showing intialization of environment state and symlinks for yarn-logs-helpers.
+# Assumes the following environment variables exist:
+#
+#   - `$yarn_logs_helpers`: points to yarn-logs-helpers repo.
+#   - `$yarn_aliases_dir`: points to a directory:
+#     - that this script can create (or that already exists),
+#     - that this script can append to your `$PATH`, and
+#     - within which this script can create symlinks to yarn-logs-helpers scripts.
+
+source_path="$yarn_logs_helpers/.yarn-logs-helpers.sourceme"
+[ -f "$source_path" ] && source "$source_path" || echo "yarn-logs-helpers: didn't find '$source_path' to source."
+
+# Set this to remove some boilerplate from the end of your node hostnames when creating per-node logs directories.
+export YARN_HELPERS_DROP_HOST_SUFFIX_FROM=""
+
+# Set this to create special symlinks to "driver" logs containing this "needle".
+export YARN_HELPERS_DRIVER_GREP_NEEDLE=""
+
+# Make some short symlinks to yarn-logs-helpers scripts.
+export PATH="$PATH:$yarn_aliases_dir"
+mkdir -p "$yarn_aliases_dir"
+ln -sf "$yarn_logs_helpers"/link-driver-logs "$yarn_aliases_dir"/ldl
+ln -sf "$yarn_logs_helpers"/yarn-appid "$yarn_aliases_dir"/ya
+ln -sf "$yarn_logs_helpers"/yarn-container-logs "$yarn_aliases_dir"/ycl
+ln -sf "$yarn_logs_helpers"/yarn-logs "$yarn_aliases_dir"/yl
+ln -sf "$yarn_logs_helpers"/yarn-kill "$yarn_aliases_dir"/yk
+ln -sf "$yarn_logs_helpers"/yarn-logs-less "$yarn_aliases_dir"/yll
+ln -sf "$yarn_logs_helpers"/yarn-log-stack-traces "$yarn_aliases_dir"/yls
+ln -sf "$yarn_logs_helpers"/split-yarn-logs-per-container "$yarn_aliases_dir"/syl
