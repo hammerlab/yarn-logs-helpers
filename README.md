@@ -76,7 +76,7 @@ A common use case is parsing logs from Spark jobs running on YARN, for which `ya
 
     * This functionality lives in [`link-driver-logs`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/link-driver-logs).
     * See the [Installing](#installing) section for more details on setting `$YARN_HELPERS_DRIVER_GREP_NEEDLE`.
-* It will create a `tid` directory and populate it with symlinks for each Spark task ID that it finds evidence of in the logs to the container-log-file where that TID seemingly ran.
+* It will create a `tids` directory and populate it with symlinks for each Spark task ID that it finds evidence of in the logs to the container-log-file where that TID seemingly ran.
     * This functionality lives in [`link-tids`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/link-tids).
     * Note that if a Spark job had multiple Application Masters ("drivers"), it will likely have had multiple tasks with some task IDs, which will cause errors to be emitted by this stage. See discussion at [#2](https://github.com/hammerlab/yarn-logs-helpers/issues/2#issuecomment-63861447).
 
