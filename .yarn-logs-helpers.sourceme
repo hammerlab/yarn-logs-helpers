@@ -29,9 +29,6 @@ fi
 
 export yarn_logs_helpers="$(dirname "${BASH_SOURCE[0]}")"
 
-source_path="$yarn_logs_helpers/.yarn-logs-helpers.sourceme"
-[ -f "$source_path" ] && source "$source_path" || echo "yarn-logs-helpers: didn't find '$source_path' to source."
-
 if [ ! -z "$yarn_aliases_dir" ]; then
   # Make some short symlinks to yarn-logs-helpers scripts.
   export PATH="$PATH:$yarn_aliases_dir"
