@@ -6,7 +6,9 @@
 #
 # When this file is sourced, if no cluster ID is found, this file will attempt to fetch one.
 
-export yarn_cluster_id_file="$HOME/.yarn-cluster-id"
+if [ -z "$yarn_cluster_id_file" ]; then
+  export yarn_cluster_id_file="$HOME/.yarn-cluster-id"
+fi
 
 if [ -z "$(get-yarn-cluster-id)" ]; then
   yarn-refresh-cluster-id
