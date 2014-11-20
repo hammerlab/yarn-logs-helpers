@@ -1,0 +1,3 @@
+[submodule "stack-traces"]
+	path = stack-traces
+	url = git@github.com:ryan-williams/stack-traces.git
