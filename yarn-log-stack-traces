@@ -1,0 +1,8 @@
+#!/bin/bash
+
+dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+stack_traces="$dir/stack-traces/stack_traces.py"
+
+appid="$(yarn-appid "$@")"
+shift
+yl "$appid" | "$stack_traces" "$@" | less
