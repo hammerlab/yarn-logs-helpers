@@ -5,6 +5,9 @@
 # represent a monotonically-increasing 4-digit number that uniquely identifies the application within this cluster-run.
 #
 # When this file is sourced, if no cluster ID is found, this file will attempt to fetch one.
+#
+# This file should be sourced via a `.yarn-logs-helpers-config.sourceme` file that you create, set environment variables
+# in, and in turn `source` from e.g. your `.bashrc`, per the instructions in README.md.
 
 if [ -z "$yarn_cluster_id_file" ]; then
   export yarn_cluster_id_file="$HOME/.yarn-cluster-id"
