@@ -21,3 +21,5 @@ fi
 
 rename-and-link-container-logs
 link-driver-logs
+link-tids
+
