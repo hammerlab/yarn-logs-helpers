@@ -54,8 +54,9 @@ $ yarn-container-logs 0018
     ```
 
     * This functionality lives in [`rename-and-link-container-logs`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/rename-and-link-container-logs).
-    * In this example, the per-node directories have a common suffix `.rest.of.domain.name_<port>` removed for brevity; this is enabled by setting the `$YARN_HELPERS_DROP_HOST_SUFFIX_FROM` environment variable. See the [Installing](#installing) section for more details.
-* Finally, a common use case is parsing logs from Spark jobs running on YARN, and it is useful to specifically identify the logs corresponding to Spark "driver"(s); if the `$YARN_HELPERS_DRIVER_GREP_NEEDLE` environment variable is set, then `yarn-container-logs` will `grep` over all container log-files for its value, and upon finding matches, will create a `drivers` directory with symlinks to those log-files, by name and by index in which they were found:
+    * In this example, the per-node directories have a common suffix `.rest.of.domain.name_<port>` removed for brevity; this is enabled by setting the `$YARN_HELPERS_DROP_HOST_SUFFIX_FROM` environment variable.
+    * See the [Installing](#installing) section for more details on setting `$YARN_HELPERS_DROP_HOST_SUFFIX_FROM`.
+* Finally, a common use case is parsing logs from Spark jobs running on YARN, where it is useful to specifically identify the logs corresponding to Spark "driver"(s); if the `$YARN_HELPERS_DRIVER_GREP_NEEDLE` environment variable is set, then `yarn-container-logs` will `grep` over all container log-files for its value, and upon finding matches, will create a `drivers` directory with symlinks to those log-files, by name and by index in which they were found:
 
         $ ls -l drivers
         lrwxrwxrwx 1 <user> <group> 41 Nov 20 04:42 0 -> ../container_1416279928169_0018_01_000015
@@ -67,13 +68,13 @@ $ yarn-container-logs 0018
             lrwxrwxrwx 1 <user> <group> 9 Nov 20 04:42 driver -> drivers/0
 
     * This functionality lives in [`link-driver-logs`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/link-driver-logs).
-    * See the [Installing](#installing) section for more details.
+    * See the [Installing](#installing) section for more details on setting `$YARN_HELPERS_DRIVER_GREP_NEEDLE`.
 
 #### Other Miscellaneous Scripts
 This repo contains several other scripts that basically wrap YARN commands in calls to [`yarn-appid`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/yarn-appid), allowing last-4-lookup of application IDs:
-* `yarn-kill`: wrapper for `yarn application -kill`
-* `yarn-logs`: wrapper for `yarn logs -applicationId`
-    * `yarn-logs-less`: pipes `yarn-logs` to `less`
+* [`yarn-kill`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/yarn-kill): wrapper for `yarn application -kill <appid>`.
+* [`yarn-logs`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/yarn-logs): wrapper for `yarn logs -applicationId <appid>`.
+    * [`yarn-logs-less`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/yarn-logs-less): pipes `yarn-logs` to `less`.
 
 # Installing
 There are a few things you should do in your `.bashrc` (or equivalent):
