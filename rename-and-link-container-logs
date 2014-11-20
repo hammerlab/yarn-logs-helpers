@@ -12,8 +12,8 @@ for f in ./container-*; do
 
   host="${line##* on }"
 
-  if [ ! -z "$YARN_HELPERS_STRIP_HOST_SUFFIX" ]; then
-    host="${host%${YARN_HELPERS_STRIP_HOST_SUFFIX}*}"
+  if [ ! -z "$YARN_HELPERS_DROP_HOST_SUFFIX_FROM" ]; then
+    host="${host%${YARN_HELPERS_DROP_HOST_SUFFIX_FROM}*}"
   fi
 
   mv "$f" "$container"
