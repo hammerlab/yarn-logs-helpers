@@ -3,7 +3,7 @@
 mkdir -p tids
 for f in containers/container_*; do
   #echo "Parsing TIDs from $f"
-  for tid in $(pne 's/.* Running task .*\(TID ([0-9]+)\).*/\1/' "$f"); do
+  for tid in $(perl -ne 's/.* Running task .*\(TID ([0-9]+)\).*/\1/' "$f"); do
     ln -s ../"$f" tids/$tid
   done
 done
