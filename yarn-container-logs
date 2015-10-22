@@ -30,8 +30,9 @@ cd "$dest_dir"
 echo "Done downloading; rename and create per-host directories..."
 rename-and-link-hosts
 
-echo "Look for driver containers..."
+echo "Look for driver containers and application masters..."
 link-driver-logs
+link-app-masters
 
 echo "Creating TID symlinks..."
 link-tids
