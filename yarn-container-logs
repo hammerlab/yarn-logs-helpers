@@ -36,3 +36,6 @@ link-driver-logs
 echo "Creating TID symlinks..."
 link-tids
 
+echo "Creating EID symlinks..."
+link-eids
+

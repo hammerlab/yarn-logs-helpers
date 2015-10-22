@@ -1,8 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ -z "$YARN_HELPERS_DRIVER_GREP_NEEDLE" ]; then
-  echo "No YARN_HELPERS_DRIVER_GREP_NEEDLE set; skipping driver-log-linking."
-  exit 0
+  export YARN_HELPERS_DRIVER_GREP_NEEDLE="Running Spark version"
 fi
 
 mkdir -p drivers
