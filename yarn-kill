@@ -1,3 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-yarn application -kill "$(yarn-appid "$@")"
+for arg in "$@"; do
+  yarn application -kill "$(yarn-appid "$arg")"
+done

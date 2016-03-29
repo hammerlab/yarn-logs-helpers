@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Other scripts can use this script to look up application IDs by the last 4 digits, for example:
 #
@@ -10,14 +10,15 @@ if [ $# -eq 0 ]; then
   exit 1
 fi
 
-appid="$1"
-if [[ $appid =~ ^[0-9]{4}$ ]]; then
-  set -e
-  if [ -z "$(get-yarn-cluster-id)" ]; then
-    yarn-refresh-cluster-id
+for appid in "$@"; do
+  if [[ $appid =~ ^[0-9]{4,}$ ]]; then
+    set -e
+    if [ -z "$(get-yarn-cluster-id)" ]; then
+      yarn-refresh-cluster-id
+    fi
+
+    appid="application_$(get-yarn-cluster-id)_${appid}"
   fi
 
-  appid="application_$(get-yarn-cluster-id)_${appid}"
-fi
-
-echo "$appid"
+  echo "$appid"
+done

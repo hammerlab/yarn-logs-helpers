@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 appid="$(yarn-appid "$1")"
 shift
@@ -34,8 +34,8 @@ echo "Look for driver containers and application masters..."
 link-driver-logs
 link-app-masters
 
-echo "Creating TID symlinks..."
-link-tids
+#echo "Creating TID symlinks..."
+#link-tids
 
 echo "Creating EID symlinks..."
 link-eids

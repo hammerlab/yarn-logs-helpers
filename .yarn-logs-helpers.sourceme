@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This file should be sourced via your .bashrc or equivalent. See the instructions in README.md.
 # It attempts to compute a "cluster ID" from YARN application IDs, and optionally creates symlinks
@@ -19,28 +19,15 @@ if [ -z "$(get-yarn-cluster-id)" ]; then
   yarn-refresh-cluster-id
 fi
 
-
-# If the `$yarn_aliases_dir` environment variable exists, attempt to initialize symlinks for
-# yarn-logs-helpers scripts.
-#
-#   - create a directory there (or no-op if one already exists),
-#   - append it to `$PATH`, and
-#   - create symlinks to yarn-logs-helpers scripts within it.
-
-export yarn_logs_helpers="$(dirname "${BASH_SOURCE[0]}")"
-
-if [ -n "$yarn_aliases_dir" ]; then
-  # Make some short symlinks to yarn-logs-helpers scripts.
-  export PATH="$PATH:$yarn_aliases_dir"
-  mkdir -p "$yarn_aliases_dir"
-  ln -sf "$yarn_logs_helpers"/link-driver-logs "$yarn_aliases_dir"/ldl
-  ln -sf "$yarn_logs_helpers"/yarn-appid "$yarn_aliases_dir"/ya
-  ln -sf "$yarn_logs_helpers"/yarn-container-logs "$yarn_aliases_dir"/ycl
-  ln -sf "$yarn_logs_helpers"/yarn-logs "$yarn_aliases_dir"/yl
-  ln -sf "$yarn_logs_helpers"/yarn-kill "$yarn_aliases_dir"/yk
-  ln -sf "$yarn_logs_helpers"/yarn-logs-less "$yarn_aliases_dir"/yll
-  ln -sf "$yarn_logs_helpers"/yarn-log-stack-traces "$yarn_aliases_dir"/yls
-  ln -sf "$yarn_logs_helpers"/split-yarn-logs-per-container "$yarn_aliases_dir"/syl
-fi
+alias yl=yarn-logs
+alias yll=yarn-logs-less
+alias yk=yarn-kill
+alias ycl=yarn-container-logs
+alias ya=yarn-appid
+alias yls=yarn-log-stack-traces
+alias syl=split-yarn-logs-per-container
+alias ldl=link-driver-logs
+alias yal="yarn application -list"
+alias yan="yarn node -list -all"
 
 alias parse-container="pcregrep -o 'container_[0-9_]+'"

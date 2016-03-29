@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Scans existing YARN applications, parses a <cluster ID>, from them, and writes it to the file $yarn_cluster_id_file
 # (default $HOME/.yarn-cluster-id). No-ops if no `yarn` binary is found.
