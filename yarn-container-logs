@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 appid="$(yarn-appid "$1")"
 shift
 if [ $# -gt 0 ]; then
@@ -33,9 +35,6 @@ rename-and-link-hosts
 echo "Look for driver containers and application masters..."
 link-driver-logs
 link-app-masters
-
-#echo "Creating TID symlinks..."
-#link-tids
 
 echo "Creating EID symlinks..."
 link-eids
