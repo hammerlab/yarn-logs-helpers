@@ -116,11 +116,12 @@ In your `.bashrc` (or equivalent), source [`.yarn-logs-helpers.sourceme`](https:
 
         $ source /path/to/repo/.yarn-logs-helpers.sourceme
 
-    This will:
-    * try to fetch your cluster's ID using the [`yarn-refresh-cluster-id`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/yarn-refresh-cluster-id) script.
-        * If found, the result will be cached in `$yarn_cluster_id_file` ([default: `$HOME/.yarn-cluster-id`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/.yarn-logs-helpers.sourceme#L15)).
-        * This will allow all scripts in this repo to look up YARN application IDs by their last 4 digits (using [`yarn-appid`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/yarn-appid)).
-    * [set aliases](https://github.com/hammerlab/yarn-logs-helpers/blob/master/.yarn-logs-helpers.sourceme#L22-L31) for most functionality in this repo.
+This will:
+* try to fetch your cluster's ID using the [`yarn-refresh-cluster-id`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/yarn-refresh-cluster-id) script.
+    * If found, the result will be cached in `$yarn_cluster_id_file` ([default: `$HOME/.yarn-cluster-id`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/.yarn-logs-helpers.sourceme#L15)).
+    * This will allow all scripts in this repo to look up YARN application IDs by their last 4 digits (using [`yarn-appid`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/yarn-appid)).
+* [set aliases](https://github.com/hammerlab/yarn-logs-helpers/blob/master/.yarn-logs-helpers.sourceme#L22-L31) for most functionality in this repo.
+* add the root directory of this repo to your `$PATH`.
 
 You may also want to export the env variable discussed above:
 
