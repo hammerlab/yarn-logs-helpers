@@ -34,7 +34,7 @@ defn yll yarn-logs-less
 defn yk yarn-kill
 defn ycl yarn-container-logs
 defn ya yarn-appid
-defn yls yarn-log-stack-traces
+defn yls yarn-logs-stack-traces
 defn syl split-yarn-logs-per-container
 defn ldl link-driver-logs
 defn yal yarn application -list
