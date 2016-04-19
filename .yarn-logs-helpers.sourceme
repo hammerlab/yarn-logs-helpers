@@ -11,6 +11,8 @@
 #
 # When this file is sourced, if no cluster ID is found, it will attempt to fetch one.
 
+export PATH="$(dirname "$(realpath "${BASH_SOURCE[0]:-$0}")"):$PATH"
+
 if [ -z "$yarn_cluster_id_file" ]; then
   export yarn_cluster_id_file="$HOME/.yarn-cluster-id"
 fi
@@ -19,12 +21,11 @@ if [ -z "$(get-yarn-cluster-id)" ]; then
   yarn-refresh-cluster-id
 fi
 
-export PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ):$PATH"
-
 define-function() {
   name="$1"
   shift
-  eval "$(echo -e "$name() {\n $@ \"\$@\"\n}\nexport -f $name")"
+  eval "$name() { $@ \"\$@\"; }"
+  export $name
 }
 alias defn=define-function
 
