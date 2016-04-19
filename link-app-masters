@@ -1,16 +1,12 @@
 #!/usr/bin/env bash
 
-if [ -z "$YARN_HELPERS_APP_MASTER_GREP_NEEDLE" ]; then
-  export YARN_HELPERS_APP_MASTER_GREP_NEEDLE="ApplicationAttemptId: "
-fi
-
 mkdir -p app_masters
 
 idx=0
 
 OLD_IFS="$IFS"
 IFS=$'\n'
-for f in $(grep -l "$YARN_HELPERS_APP_MASTER_GREP_NEEDLE" containers/container_*); do
+for f in $(grep -l "${YARN_HELPERS_APP_MASTER_GREP_NEEDLE:-ApplicationAttemptId: }" containers/container_*); do
   echo "Found app_master: $f"
   ln -sf ../"$f" app_masters/
   ln -sf ../"$f" app_masters/$idx

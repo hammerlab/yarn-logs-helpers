@@ -1,16 +1,12 @@
 #!/usr/bin/env bash
 
-if [ -z "$YARN_HELPERS_DRIVER_GREP_NEEDLE" ]; then
-  export YARN_HELPERS_DRIVER_GREP_NEEDLE="Running Spark version"
-fi
-
 mkdir -p drivers
 
 idx=0
 
 OLD_IFS="$IFS"
 IFS=$'\n'
-for f in $(grep -l "$YARN_HELPERS_DRIVER_GREP_NEEDLE" containers/container_*); do
+for f in $(grep -l "${YARN_HELPERS_DRIVER_GREP_NEEDLE:-spark.SparkContext}" containers/container_*); do
   echo "Found driver: $f"
   ln -sf ../"$f" drivers/
   ln -sf ../"$f" drivers/$idx
