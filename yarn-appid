@@ -6,7 +6,7 @@
 #   $ yarn-appid application_1416279928169_0011  # also returns application_1416279928169_0011
 
 if [ $# -eq 0 ]; then
-  err "Usage: $0 <app id>"
+  echo "Usage: $0 <app id>" 1>&2
   exit 1
 fi
 
