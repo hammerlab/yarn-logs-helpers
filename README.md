@@ -114,7 +114,7 @@ This repo contains several other scripts that basically wrap YARN commands in ca
 # Installing
 Download this repository with:
 
-        git clone --recursive git@github.com:hammerlab/yarn-logs-helpers.git
+        git clone --recursive https://github.com/hammerlab/yarn-logs-helpers.git
 
 In your `.bashrc` (or equivalent), source [`.yarn-logs-helpers.sourceme`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/.yarn-logs-helpers.sourceme):
 
