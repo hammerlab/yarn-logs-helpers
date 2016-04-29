@@ -123,7 +123,16 @@ This will:
 * [set aliases](https://github.com/hammerlab/yarn-logs-helpers/blob/master/.yarn-logs-helpers.sourceme#L22-L31) for most functionality in this repo.
 * add the root directory of this repo to your `$PATH`.
 
-You may also want to export the env variable discussed above:
+## Env vars
+Setting `$YARN_LOGS_USER` may allow `yarn-container-logs` to fetch logs from apps run by users other than you.
+
+You can set it permanently in your `.bashrc` to a user that has permissions to read all YARN users' logs, or just on the cmdline for one call:
+
+```bash
+YARN_LOGS_USER=someone yarn-logs 1234
+```
+
+You may also want to export `YARN_HELPERS_DROP_HOST_SUFFIX_FROM` (discussed above):
 
         # Pattern for abbreviating host names when creating per-host log directories.
         export YARN_HELPERS_DROP_HOST_SUFFIX_FROM=".rest.of.domain.name_"
