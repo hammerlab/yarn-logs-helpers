@@ -112,6 +112,10 @@ This repo contains several other scripts that basically wrap YARN commands in ca
     * [`yarn-logs-less`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/yarn-logs-less): pipes `yarn-logs` to `less`.
 
 # Installing
+Download this repository with:
+
+        git clone --recursive https://github.com/hammerlab/yarn-logs-helpers.git
+
 In your `.bashrc` (or equivalent), source [`.yarn-logs-helpers.sourceme`](https://github.com/hammerlab/yarn-logs-helpers/blob/master/.yarn-logs-helpers.sourceme):
 
         $ source /path/to/repo/.yarn-logs-helpers.sourceme

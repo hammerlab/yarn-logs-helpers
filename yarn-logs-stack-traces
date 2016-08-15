@@ -4,6 +4,6 @@ set -e
 dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 stack_traces="$dir/stack-traces/stack_traces.py"
 
-appid="$(yarn-appid "$@")"
+appid="$(yarn-appid "$1")"
 shift
-yl "$appid" | "$stack_traces" "$@" | less
+yarn-logs "$appid" | "$stack_traces" "$@"

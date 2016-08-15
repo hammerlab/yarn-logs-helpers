@@ -3,6 +3,7 @@
 mkdir -p eids
 OLD_IFS="$IFS"
 IFS=$'\n'
+# NOTE: multiple attempts won't work with this script
 for line in $(grep 'Starting executor ID' containers/* | perl -ne 'print if s/^containers\/([^:]+).*Starting executor ID ([0-9]+) on host (.*)/\1 \2 \3/'); do
   container="${line%% *}"
   eid="${line% *}"
