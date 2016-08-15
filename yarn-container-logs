@@ -4,38 +4,33 @@ set -e
 
 appid="$(yarn-appid "$1")"
 shift
+
 if [ $# -gt 0 ]; then
   dest_dir="$1"
 else
-  dest_dir=./"$appid"
+  dest_dir="$PWD/$appid"
 fi
 
 mkdir -p "$dest_dir"
 cd "$dest_dir"
-dest_dir="$PWD"
 
 containers_dir="$dest_dir/containers"
 mkdir -p "$containers_dir"
 cd "$containers_dir"
 
-cached_log_file="$dest_dir/logs"
+logfile="$dest_dir/logs"
 
-if [ -s "$cached_log_file" ]; then
-  echo "Found existing logs file at $cached_log_file; splitting per-container..."
-  split-yarn-logs-per-container "$cached_log_file"
+if [ -s "$logfile" ]; then
+  echo "Found existing logs file at $logfile; splitting per-container..."
+  split-yarn-logs-per-container "$logfile"
 else
-  echo "Downloading logs for $appid and splitting per-container..."
 
-  logfile="$(mktemp)"
-  rmtmp() {
-    rm -f "$logfile"
-  }
-  trap rmtmp EXIT
+  echo "Downloading logs for $appid to $logfile and splitting per-container..."
 
   if ! yarn logs -applicationId "$appid" > "$logfile"; then
     if [ -n "$YARN_LOGS_USER" ]; then
       echo "Caught error; fetching owner..."
-      owner="$(yarn application -list -appStates FINISHED | grep "$appid" | awk '{ print $4 }')"
+      owner="$(yarn application -list -appStates FINISHED,FAILED,KILLED | grep "$appid" | awk -F'\t' '{gsub(/^ +/, "", $4); gsub(/ +$/, "", $4); print $4 }')"
       if [ -n "$owner" ]; then
         echo "Found app owner: $owner; retrying fetching logs for $appid as user $YARN_LOGS_USER..."
         sudo -u "$YARN_LOGS_USER" yarn logs -applicationId "$appid" -appOwner "$owner" > "$logfile"
