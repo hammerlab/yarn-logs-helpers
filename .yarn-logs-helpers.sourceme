@@ -11,7 +11,10 @@
 #
 # When this file is sourced, if no cluster ID is found, it will attempt to fetch one.
 
-export PATH="$(dirname "$(realpath "${BASH_SOURCE[0]:-$0}")"):$PATH"
+cwd="$(dirname "$(realpath "${BASH_SOURCE[0]:-$0}")")"
+export PATH="$cwd:${PATH:+:}$PATH"
+
+export yh="$cwd"
 
 if [ -z "$yarn_cluster_id_file" ]; then
   export yarn_cluster_id_file="$HOME/.yarn-cluster-id"
@@ -41,3 +44,6 @@ defn yal yarn application -list
 defn yan yarn node -list -all
 
 defn parse_container pcregrep -o 'container_[0-9_]+'
+
+defn find_appid grep -rom1 'application_[0-9_]\*'
+defn fa find_appid
